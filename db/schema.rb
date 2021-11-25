@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2021_11_20_194335) do
     t.string "url"
     t.string "title"
     t.text "description"
+    t.boolean "private"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_images_on_user_id"

@@ -1,5 +1,5 @@
 class Image < ApplicationRecord
-  has_one :user
+  belongs_to :user
 
   validates :url, presence: true, uniqueness: true
 end

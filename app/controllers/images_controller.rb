@@ -2,16 +2,30 @@ class ImagesController < ApplicationController
   before_action :logged_in?, only: [:create, :update, :destroy]
 
   def index
-    image = Image.all
+    images = Image.where(private: false).sample(20)
+
+    render json: images
   end
 
   def show
     image = Image.find(params[:id])
+
+    render json: image
+
+  rescue ActiveRecord::RecordNotFound
+    render json: {error: "image not found"}
   end
 
+  def find
+    images = Image.where("lower(title) LIKE ?", "%" + params[:title].downcase + "%")
+
+    render json: images
+  end
+  
+
   def create
-    url = Cloudinary::Uploader.upload(params[:url], use_filename: true, folder: "jscribble")
-    image = Image.new(permit_params.merge({url: url}))
+    uploader = Cloudinary::Uploader.upload(params[:image_data], folder: "jscribble/#{@user.username}")
+    image = Image.new(permit_params.merge(user_id: @user.id, url: uploader["url"]))
 
     if image.valid?
       image.save
@@ -45,7 +59,7 @@ class ImagesController < ApplicationController
   private
   
   def permit_params
-    params.require(:image).permit(:title, :description)
+    params.permit(:title, :url, :description, :private)
   end
   
 end
