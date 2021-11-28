@@ -47,3 +47,5 @@ gem 'active_model_serializers'
 gem 'cloudinary'
 
 gem 'faker'
+
+gem 'figaro'

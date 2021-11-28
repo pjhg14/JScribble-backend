@@ -1,12 +1,12 @@
 class ApplicationController < ActionController::API
   def generate_token(payload)
-    JWT.encode(payload, "delicious_christmas")
+    JWT.encode(payload, ENV["TOKEN_SECRET"])
 end
 
 def logged_in?
   begin
     token = request.headers["Authorization"].split(" ")[1]
-    user_id = JWT.decode(token, "delicious_christmas")[0]["user_id"]
+    user_id = JWT.decode(token, ENV["TOKEN_SECRET"])[0]["user_id"]
     
     @user = User.find(user_id)
   rescue 

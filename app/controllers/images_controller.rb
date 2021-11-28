@@ -2,6 +2,12 @@ class ImagesController < ApplicationController
   before_action :logged_in?, only: [:create, :update, :destroy]
 
   def index
+    images = Image.all
+
+    render json: images
+  end
+
+  def sample
     images = Image.where(private: false).sample(20)
 
     render json: images
@@ -21,7 +27,6 @@ class ImagesController < ApplicationController
 
     render json: images
   end
-  
 
   def create
     uploader = Cloudinary::Uploader.upload(params[:image_data], folder: "jscribble/#{@user.username}")

@@ -21,6 +21,12 @@ class UsersController < ApplicationController
     render json: users
   end
 
+  def sample
+    users = User.all.sample(20)
+
+    render json: users
+  end
+
   def show
     user = User.find(params[:id])
 

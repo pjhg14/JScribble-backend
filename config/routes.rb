@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   post '/users/login', to: 'users#login'
   post '/users/upload', to: 'users#upload'
   get '/users/token', to: 'users#process_token'
+  get '/users/sample', to: 'users#sample'
   get '/users/find/:username', to: 'users#find'
+  get '/images/sample', to: 'images#sample'
   get '/images/find/:title', to: 'images#find'
   
   resources :users, only: [:index, :show, :create, :update, :destroy]

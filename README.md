@@ -1,8 +1,8 @@
 # JScribble - the online doodling app
 
-link here
-
-![Demo Image](public/assets/JScribbleCanvas.gif)
+[Frontend Live Here!](https://jscribble.netlify.app)
+[Query users](https://guarded-wildwood-61512.herokuapp.com/users)
+[Query image data](https://guarded-wildwood-61512.herokuapp.com/images)
 
 ### Description of you application:
 JScribble is a small drawing application that allows you to doodle and draw on a canvas to express your ideas
