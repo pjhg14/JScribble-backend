@@ -30,7 +30,8 @@ class ImagesController < ApplicationController
 
   def create
     uploader = Cloudinary::Uploader.upload(params[:image_data], folder: "jscribble/#{@user.username}")
-    image = Image.new(permit_params.merge(user_id: @user.id, url: uploader["url"]))
+    image = Image.new(permit_params.merge(user_id: @user.id, cloud_id: uploader["public_id"] url: uploader["secure_url"]))
+
 
     if image.valid?
       image.save
@@ -57,6 +58,8 @@ class ImagesController < ApplicationController
 
   def destroy
     image = Image.find(params[:id])
+
+    Cloudinary::Api.delete_resources([image.cloud_id])
 
     image.destroy
   end
