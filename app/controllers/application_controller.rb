@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
   def generate_token(payload)
     JWT.encode(payload, ENV["TOKEN_SECRET"])
-end
+  end
 
 def logged_in?
   begin

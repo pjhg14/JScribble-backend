@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in?, only: [:process_token, :profile, :update, :upload, :destroy]
+  before_action :logged_in?, only: [:process_token, :profile, :update, :upload, :deactivate]
 
   def login
     user = User.find_by(username: params[:username])
@@ -81,13 +81,10 @@ class UsersController < ApplicationController
     end
   end
   
-
-  def destroy
-    @user.images.destroy_all
-
+  def deactivate
     @user.destroy
 
-    render json: {message: "User destroyed"}
+    render json: {message: "User deactivated and related images destroyed"}
   end
   
   private

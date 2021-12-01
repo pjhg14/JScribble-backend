@@ -23,14 +23,14 @@ class ImagesController < ApplicationController
   end
 
   def find
-    images = Image.where("lower(title) LIKE ?", "%" + params[:title].downcase + "%")
+    images = Image.where("lower(title) LIKE ?", "%#{params[:title].downcase}%")
 
     render json: images
   end
 
   def create
     uploader = Cloudinary::Uploader.upload(params[:image_data], folder: "jscribble/#{@user.username}")
-    image = Image.new(permit_params.merge(user_id: @user.id, cloud_id: uploader["public_id"] url: uploader["secure_url"]))
+    image = Image.new(permit_params.merge(user_id: @user.id, cloud_id: uploader["public_id"], url: uploader["secure_url"]))
 
 
     if image.valid?
