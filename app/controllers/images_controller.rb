@@ -62,6 +62,8 @@ class ImagesController < ApplicationController
     Cloudinary::Api.delete_resources([image.cloud_id])
 
     image.destroy
+
+    render json: {message: "Image Deleted"}
   end
   
   private

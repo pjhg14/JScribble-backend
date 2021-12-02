@@ -82,6 +82,16 @@ class UsersController < ApplicationController
   end
   
   def deactivate
+    # get all image cloud_ids
+    cloud_ids = @user.images.map {|image| image.cloud_id}
+
+
+    # # destroy images in cloudinary
+    Cloudinary::Api.delete_resources(cloud_ids)
+
+    # # destroy images
+    @user.images.destroy_all
+
     @user.destroy
 
     render json: {message: "User deactivated and related images destroyed"}
